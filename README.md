@@ -99,9 +99,9 @@
 
 # Deployment: 
 
-# Github Client
+# Github Client https://github.com/kmstamey/spiral-client 
 
-# Github Server
+# Github Server https://github.com/kmstamey/spiral-server
 
 # Slides
 

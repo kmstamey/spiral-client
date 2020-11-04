@@ -23,12 +23,12 @@
 
 # Client - routes
 * / = home
-*/signup = signup
-*/signin = signin
-*/profile = my profile
-*/friends = my friends
-*/profile/:userId = profile of another user
-*/start-countdown = start countdown
+* /signup = signup
+* /signin = signin
+* /profile = my profile
+* /friends = my friends
+* /profile/:userId = profile of another user
+* /start-countdown = start countdown
   
   
  # Pages

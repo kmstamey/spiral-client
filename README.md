@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+#  Spiral  #
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Description
+ Does your mind spiral out of control when you have too much to do? Get rid of those fears with spiral! Spiral is an app that allows you to plan out your days to help you accomplish your goals. By using a calendar to track your to dos and a countdown clock, it makes focusing much easier!
 
-## Available Scripts
+# User Stories
 
-In the project directory, you can run:
+* As a user, I want to be able to access the homepage and be able to sign up or login.
+* As a user, I want to see an error page when an error happens.
+* As a user, I can create an account and log in
+* As a user, By logging in I can see my user profile, which I can edit and delete the account.
+* As a user, I can log out, which will also be done when I delete the account
+* As a user, I can search for friends to study together
+* As a user, I can create events/goals
+* As a user, I can edit and delete events I have created
+* As a user, Events can be seen by date and type of information
+* As a user, I can edit my goals
+* As a user, I can delete my goals
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Backlog
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+# Client - routes
+* / = home
+* /signup = signup
+* /signin = signin
+* /profile = my profile
+* /friends = my friends
+* /profile/:userId = profile of another user
+* /start-countdown = start countdown
+  
+  
+ # Pages
+*  Home Page (public)
+* Sign up Page (public)
+* User profile (user only)
+* Edit user profile (user only)
+* Feed page (user only)
+* Event-finder page (user only)
+* Event-description page (user only)
+* Create-event page (user only)
+* 404 Page (public)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Components
+* Search component
+* Navbar
+* AddForm
+* EditForm
+* SignIn
+* SignUp
 
-### `npm run build`
+# Services
+* Auth Service
+* auth.login(user)
+* auth.signup(user)
+* auth.logout()
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Models
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*User Model
+* username - String // required
+* email - String // required & unique
+* password - String // required
+* userAvatar - type: String
 
-### `npm run eject`
+*Events Model
+* createdBy - type: ObjectId // required: true
+* textComment - type: String // required: true
+* Comments - type: Array of Strings // required: true
+* Date - type: Number // required: true
+* Topics - type: Array of Strings // required: true
+* NumberOfPeople - type: Array of objectIds // required: true
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Backend Routes
+* GET /auth
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* POST /auth/signup body: username email password
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* POST /auth/login body: username password
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* POST /auth/logout body: (empty)
 
-## Learn More
+* GET /event
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* POST /event body:Event , event counter, text comment, time, place, number of people
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* GET /event/:id
 
-### Code Splitting
+* DELETE /event/:id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* EDIT /event/:id
 
-### Analyzing the Bundle Size
+* GET /feed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Links
 
-### Making a Progressive Web App
+# Deployment: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Github Client https://github.com/kmstamey/spiral-client 
 
-### Advanced Configuration
+# Github Server https://github.com/kmstamey/spiral-server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Slides
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# trello : https://trello.com/b/MrGw1vIi/spiral-project-3 

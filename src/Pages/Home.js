@@ -9,6 +9,8 @@ const Home = () => {
       
   useEffect(() => {
     let user = AuthService.getCurrentUser();
+    console.log('hoi');
+    console.log(user);
     if (user) {
       setUserName(user.name);
     }

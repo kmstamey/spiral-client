@@ -8,6 +8,17 @@ body {
   display: flex;
 }
 
+.mainHeader nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.mainHeader nav a {
+  display: block;
+  padding: 0 8px;
+}
+
 .App {
   text-align: center;
 }

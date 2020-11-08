@@ -3,8 +3,15 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8000/api/";
 
-const getPublicContent = () => {
-  return axios.get(API_URL + "all");
+const startTimer = (time, goals) => {
+  return axios.post(API_URL + 'me/spiral', {
+        time,
+        goals
+    }, { headers: authHeader() });
+};
+
+const getTimer = (time, goals) => {
+return axios.get(API_URL + 'me/spiral', { headers: authHeader() });
 };
 
 const getUserBoard = () => {
@@ -20,7 +27,8 @@ const getAdminBoard = () => {
 };
 
 export default {
-  getPublicContent,
+    startTimer,
+    getTimer,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,

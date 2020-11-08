@@ -1,53 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import AuthService from "../Services/auth.service";
 
-class Profile extends Component {
-  // Initialize the state
-  constructor(props){
-    super(props);
-    this.state = {
-      list: []
+import { Header } from '../Components/Header.js';
+
+const Profile = () => {
+
+  const [userName, setUserName] = useState("");
+      
+  useEffect(() => {
+    let user = AuthService.getCurrentUser();
+    if (user) {
+      setUserName(user.name);
     }
-  }
 
-  // Fetch the list on first mount
-  componentDidMount() {
-    this.getList();
-  }
+  }, []);
 
-  // Retrieves the list of items from the Express app
-  getList = () => {
-    fetch('/api/getList')
-    .then(res => res.json())
-    .then(list => this.setState({ list }))
-  }
+  return (
+  <div className="App">
+    <Header />
 
-  render() {
-    const { list } = this.state;
+    <h1>Profile</h1>
 
-    return (
-      <div className="App">
-        <h1>Profile</h1>
-        {/* Check to see if any items are found*/}
-        {list.length ? (
-          <div>
-            {/* Render the list of items */}
-            {list.map((item) => {
-              return(
-                <div>
-                  {item}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <h2>No List Items Found</h2>
-          </div>
-        )
-      }
-      </div>
-    );
-  }
+    { (userName ) && (   <h3>Welcome, {userName}</h3> ) }
+    { (!userName ) && (   <h3>Not logged in</h3> ) }
+     
+  </div>
+  );
 }
 
 export default Profile;

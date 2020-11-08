@@ -1,54 +1,31 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import AuthService from "../Services/auth.service";
 
-class Home extends Component {
-  render() {
-    return (
-    <div className="App">
-      <h1>Home</h1>
-      {/* Link to List.js */}
-      <Link to={'./'}>
-        <button variant="raised">
-            Home
-        </button>
-      </Link>  
-      <Link to={'./signup'}>
-        <button variant="raised">
-            SignUp
-        </button>
-      </Link>     
-      <Link to={'./signin'}>
-        <button variant="raised">
-            SignIn
-        </button>
-      </Link>  
-      <Link to={'./profile'}>
-        <button variant="raised">
-            Profile
-        </button>
-      </Link>
-      <Link to={'./editprofile'}>
-        <button variant="raised">
-            EditProfile
-        </button>
-      </Link>
-      <Link to={'./goals'}>
-        <button variant="raised">
-            Goals
-        </button>
-      </Link>
-      <Link to={'./friends'}>
-        <button variant="raised">
-            MyFriends
-        </button>
-      </Link>
-      <Link to={'./starttimer'}>
-        <button variant="raised">
-            StartTimer
-        </button>
-      </Link>
-    </div>
-    );
-  }
+import { Header } from '../Components/Header.js';
+
+const Home = () => {
+
+  const [userName, setUserName] = useState("");
+      
+  useEffect(() => {
+    let user = AuthService.getCurrentUser();
+    if (user) {
+      setUserName(user.name);
+    }
+
+  }, []);
+
+  return (
+  <div className="App">
+    <Header />
+
+    <h1>Home</h1>
+
+    { (userName ) && (   <h3>Welcome, {userName}</h3> ) }
+    { (!userName ) && (   <h3>Not logged in</h3> ) }
+     
+  </div>
+  );
 }
+
 export default Home;

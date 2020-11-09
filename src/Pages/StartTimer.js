@@ -6,7 +6,10 @@ import { Header } from '../Components/Header.js';
 
 const StartTimer = () => {
 
+  const [isFinished, setIsFinished] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentSpiral, setCurrentSpiral] = useState(null);
+  const [goalList, setGoalList] = useState([""]);
 
   const [userName, setUserName] = useState("");
   const [time, setSpiralTime] = useState(null);
@@ -19,7 +22,9 @@ const StartTimer = () => {
 
   let minutesLeft = 0, secondsLeft = 0, progressPerc = 0;
 
-  if (time !== null && startTime !== null) {
+  let secondsLeftText = '00';
+
+  if (isFinished === false && time !== null && startTime !== null) {
     let timeParts = time.split(':');
     let timeMinutes = parseInt(timeParts[0]);
     let timeSeconds = parseInt(timeParts[1]);
@@ -29,14 +34,21 @@ const StartTimer = () => {
     const totalSecondsLeft = totalTimeSeconds - progressTime;
 
     minutesLeft = Math.floor(totalSecondsLeft / 60);
-    secondsLeft = Math.floor(totalSecondsLeft % 60);
+    secondsLeft = Math.ceil(totalSecondsLeft % 60);
 
+    secondsLeftText = secondsLeft.toString();
+    if (secondsLeftText.length == 1) {
+      secondsLeftText = '0' + secondsLeftText;
+    }
 
     progressPerc = Math.ceil((100 / totalTimeSeconds) * progressTime);
+
+    if (totalSecondsLeft <= 0) {
+      setIsFinished(true);
+    }
   }
 
-
-  if (startTime !== null) {
+  if (startTime !== null && isFinished === false && progressPerc < 100) {
     const timer = setTimeout(() => {
       setProgress(Date.now());
     }, 200);
@@ -54,7 +66,35 @@ const StartTimer = () => {
     setSpiralTime("25:00");
   }
 
-  function handleNewSpiral() {
+  function handleNewSpiralClick() {
+    setIsFinished(false);
+    setIsLoading(false);
+    setCurrentSpiral(null);
+    setGoalList(['']);
+    setSpiralTime(null);
+    setStartTime(null);
+    setProgress(0);
+  }
+
+  function handleGoalInput(e, index) {
+    const { value } = e.target;
+
+    const list = [...goalList];
+    list[index] = value;
+    setGoalList(list);
+
+    return true;
+  }
+
+  function handleAddGoalClick() {
+    setGoalList([...goalList, '' ]);
+  }
+
+  function handleRemoveGoalClick() {
+    //setGoalList([...goalList, '' ]);
+  }
+
+  async function handleNewSpiral() {
     let timeParts = time.split(':');
     let timeMinutes = parseInt(timeParts[0]);
     let timeSeconds = parseInt(timeParts[1]);
@@ -63,15 +103,19 @@ const StartTimer = () => {
 
     let goals = [];
 
-    UserService.startTimer(time, goals).then(
-      (spiralData) => {
-        console.log('STARTED TIMES');
-        console.log(spiralData);
-      },
-      (error) => {
-        
-      }
-    );
+    console.log('goalList');
+    console.log(goalList);
+
+    try {
+      let spiralData = await UserService.startTimer(time, goalList);
+      console.log('STARTED TIMES');
+      console.log(spiralData);
+    } catch (e) {
+      console.log('FAILED');
+      console.log(e);
+      alert('Could not start new spiral. Are you sure you are logged in?');
+      return;
+    }
 
     setStartTime(Date.now());
 
@@ -109,9 +153,11 @@ const StartTimer = () => {
           } else {
             //setCurrentSpiral({});
           }
+
+          setIsLoading(false);
         },
         (error) => {
-          
+          setIsLoading(false);
         }
       );
     }
@@ -119,48 +165,74 @@ const StartTimer = () => {
   }, []);
 
 
+  var progressStyle = { "--progress": progressPerc + '%' };
+
   return (
   <div className="App">
     <Header />
+
+
 
     { (userName ) && (   <h3>Welcome, {userName}</h3> ) }
     { (!userName ) && (   <h3>Not logged in</h3> ) }
 
     <h1>Start spiral</h1>
 
-     
+    { isLoading && (
+      <div>Loading</div>
+    )}
+
+    { !isLoading && (
      <div className="spiral">
+
        <div className="left">
-         Left
+         
        </div>
 
        <div className="right">
 
         <div className="timer">
 
-        { !showInput &&  ( 
+        { 
+          isFinished && (
+            <div>
+              <h1>You're done!</h1>
+              <p>Time for a break</p>
+              <button onClick={handleNewSpiralClick}>Start a new spiral</button>
+            </div>
+          )
+        }
+
+        { !isFinished && !showInput &&  ( 
           <div>
           <figure>
             <div className="timer-visual">
+            <div className="time-left-container" style={progressStyle}>
               <div className="time-left">
-                {minutesLeft} : {secondsLeft}
+                {minutesLeft} : {secondsLeftText}
               </div>
             </div>
-          </figure>
-
-            <div>
-            Seconds: {progressTime} / Percentage: {progressPerc}%
             </div>
+          </figure>
             </div> 
             
           ) }
 
-
-
-          { showInput && (
+          { !isFinished && showInput && (
           <div>
-            <div>
+            <div className="input-time">
               <input type="text" value={time} onChange={onChangeTime} />
+            </div>
+            <div className="input-goals">
+              <div className="list">
+                {
+                goalList.map((x, i) => {
+                  return (
+                    <div className="goal" key={i} ><input type="text" value={x} onChange={e => handleGoalInput(e, i)} /></div>
+                  );
+                })}
+              </div>
+              <button onClick={handleAddGoalClick}>Add goall</button>
             </div>
             <div>
               <button onClick={handleNewSpiral}>Start</button>
@@ -173,7 +245,9 @@ const StartTimer = () => {
 
        </div>
      </div>
-  </div>
+    )}
+
+    </div>
   );
 }
 

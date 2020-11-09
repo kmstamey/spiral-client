@@ -19,6 +19,36 @@ body {
   padding: 0 8px;
 }
 
+.timer-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-visual .time-left-container {
+  --progress: 0%;
+  /*background: conic-gradient(from 0deg, #000, #000 var(--progress), #fff var(--progress));*/
+  width: 140px;
+  height: 140px;
+  border-radius: 140px;
+
+  transition: background-image 0.2s;
+  background-image: conic-gradient(from 0deg, green, green var(--progress), #ddd var(--progress));
+  position: relative;
+}
+
+.timer-visual .time-left {
+  --margin: 8px;
+  margin: var(--margin);
+  background: white;
+  width: calc(100% - (var(--margin) * 2));
+  height: calc(100% - (var(--margin) * 2));
+  border-radius: 99990px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .App {
   text-align: center;
 }

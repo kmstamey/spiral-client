@@ -32,7 +32,6 @@ const App = () => {
     AuthService.logout();
   };
 
-
   return (
     <Switch>
       <Switch>

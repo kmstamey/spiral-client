@@ -32,11 +32,7 @@ export class Header extends Component {
                 EditProfile
             
         </Link>
-        <Link to={'./goals'}>
-            
-                Goals
-            
-        </Link>
+        <Link to={'./goals'}>Goals</Link>
         <Link to={'./friends'}>
             
                 MyFriends

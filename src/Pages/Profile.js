@@ -12,7 +12,7 @@ const Profile = () => {
     if (user) {
       setUserName(user.name);
     }
-
+    
   }, []);
 
   return (

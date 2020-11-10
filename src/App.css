@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-size: 1.4rem;
 }
@@ -8,15 +14,39 @@ body {
   display: flex;
 }
 
+.mainHeader figure {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding-left: 24px;
+}
+
 .mainHeader nav {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
-.mainHeader nav a {
+.mainHeader nav a,
+.mainHeader .user a {
   display: block;
   padding: 0 8px;
+}
+
+.mainHeader nav {
+  margin-right: auto;
+}
+
+.mainHeader .user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 24px;
+}
+
+.mainHeader .user .current {
+  display: flex;
+  align-items: center;
 }
 
 .timer-visual {

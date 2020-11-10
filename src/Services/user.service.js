@@ -14,8 +14,13 @@ const getTimer = (time, goals) => {
 return axios.get(API_URL + 'me/spiral', { headers: authHeader() });
 };
 
-const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
+const cancelTimer = (time, goals) => {
+  return axios.post(API_URL + 'me/spiral/cancel', null, { headers: authHeader() });
+};
+
+
+const getSpirals = () => {
+  return axios.get(API_URL + "me/spirals", { headers: authHeader() });
 };
 
 const getModeratorBoard = () => {
@@ -29,7 +34,8 @@ const getAdminBoard = () => {
 export default {
     startTimer,
     getTimer,
-  getUserBoard,
+    cancelTimer,
+    getSpirals,
   getModeratorBoard,
   getAdminBoard,
 };

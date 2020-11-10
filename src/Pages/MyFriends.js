@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Header } from '../Components/Header.js';
 
 class MyFriends extends Component {
   // Initialize the state
@@ -26,6 +27,7 @@ class MyFriends extends Component {
 
     return (
       <div className="App">
+        <Header />
         <h1>MyFriends</h1>
         {/* Check to see if any items are found*/}
         {list.length ? (

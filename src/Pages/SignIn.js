@@ -4,6 +4,8 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import AuthService from "../Services/auth.service";
+import UserService from "../Services/user.service";
+
 import { Header } from '../Components/Header.js';
 
 const required = (value) => {
@@ -24,6 +26,8 @@ const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  AuthService.logout();
 
   const onChangeName = (e) => {
     const name = e.target.value;

@@ -94,6 +94,18 @@ const StartTimer = () => {
     //setGoalList([...goalList, '' ]);
   }
 
+  async function handleCancelTimerClick() {
+    try {
+      let result = await UserService.cancelTimer();
+      console.log('CANCELED TIMER');
+      
+    } catch (e) {
+
+    }
+
+    handleNewSpiralClick();
+  }
+
   async function handleNewSpiral() {
     let timeParts = time.split(':');
     let timeMinutes = parseInt(timeParts[0]);
@@ -106,8 +118,9 @@ const StartTimer = () => {
     console.log('goalList');
     console.log(goalList);
 
+    let spiralData;
     try {
-      let spiralData = await UserService.startTimer(time, goalList);
+      spiralData = await UserService.startTimer(time, goalList);
       console.log('STARTED TIMES');
       console.log(spiralData);
     } catch (e) {
@@ -117,7 +130,18 @@ const StartTimer = () => {
       return;
     }
 
-    setStartTime(Date.now());
+    setCurrentSpiral(spiralData.data);
+    let spiralStartDate = new Date(spiralData.data.startDate);
+    let spiralStartTimestamp = spiralStartDate.getTime();
+
+    let spiralMinutes = Math.floor(spiralData.data.duration / 60);
+    let spiralSeconds = Math.floor(spiralData.data.duration % 60);
+    let spiralDurationTime = spiralMinutes + ':' + spiralSeconds;
+
+    setSpiralTime(spiralDurationTime);
+    setStartTime(spiralStartTimestamp);
+
+    //setStartTime(Date.now());
 
     const timer = setTimeout(() => {
       setProgress(Date.now());
@@ -171,11 +195,6 @@ const StartTimer = () => {
   <div className="App">
     <Header />
 
-
-
-    { (userName ) && (   <h3>Welcome, {userName}</h3> ) }
-    { (!userName ) && (   <h3>Not logged in</h3> ) }
-
     <h1>Start spiral</h1>
 
     { isLoading && (
@@ -212,8 +231,10 @@ const StartTimer = () => {
                 {minutesLeft} : {secondsLeftText}
               </div>
             </div>
+            
             </div>
           </figure>
+              <button onClick={handleCancelTimerClick}>Cancel</button>
             </div> 
             
           ) }
@@ -221,9 +242,12 @@ const StartTimer = () => {
           { !isFinished && showInput && (
           <div>
             <div className="input-time">
+              <h3>Choose timeframe</h3>
               <input type="text" value={time} onChange={onChangeTime} />
             </div>
+            
             <div className="input-goals">
+              <h3>Enter one or more goals</h3>
               <div className="list">
                 {
                 goalList.map((x, i) => {
@@ -232,7 +256,7 @@ const StartTimer = () => {
                   );
                 })}
               </div>
-              <button onClick={handleAddGoalClick}>Add goall</button>
+              <button onClick={handleAddGoalClick}>Add another goal</button>
             </div>
             <div>
               <button onClick={handleNewSpiral}>Start</button>

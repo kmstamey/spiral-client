@@ -5,6 +5,7 @@ import './App.css';
 import AuthService from "./Services/auth.service";
 
 import Home from './Pages/Home.js';
+import Spiral from './Pages/Spiral.js';
 import SignUp from './Pages/SignUp.js';
 import SignIn from './Pages/SignIn.js';
 import Profile from './Pages/Profile.js';
@@ -36,6 +37,7 @@ const App = () => {
     <Switch>
       <Switch>
         <Route exact path='/' component={Home}/>
+        <Route path='/spirals/:spiralId' component={Spiral}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/signin' component={SignIn}/>
         <Route path='/profile' component={Profile}/>

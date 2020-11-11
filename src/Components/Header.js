@@ -25,7 +25,7 @@ export class Header extends Component {
       <header className="mainHeader">
 
         <figure>
-        <Link to={'./'}>
+        <Link to={'/'}>
           Spiral
         </Link>
         </figure>
@@ -33,10 +33,10 @@ export class Header extends Component {
         
         { (user) && (
                 <nav>
-                <Link to={'./profile'}>Profile</Link>
-                <Link to={'./editprofile'}>Edit profile</Link>
-                <Link to={'./friends'}>My Friends</Link>
-                <Link to={'./starttimer'}>Start spiral</Link>
+                <Link to={'/profile'}>Profile</Link>
+                <Link to={'/editprofile'}>Edit profile</Link>
+                <Link to={'/friends'}>My Friends</Link>
+                <Link to={'/starttimer'}>Start spiral</Link>
 
                 </nav>
         )}
@@ -45,15 +45,15 @@ export class Header extends Component {
           
         { (!user) && (
           <div>
-            <Link to={'./signup'}>Register</Link>     
-            <Link to={'./signin'}>Sign in</Link>
+            <Link to={'/signup'}>Register</Link>     
+            <Link to={'/signin'}>Sign in</Link>
           </div>
         )}
 
           { (user) && (
           <div className="current">
                   {user.name}
-                  <Link to={'./signin'}>Log out</Link>
+                  <Link to={'/signin'}>Log out</Link>
           </div>
           ) }
 

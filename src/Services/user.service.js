@@ -23,6 +23,18 @@ const getSpirals = () => {
   return axios.get(API_URL + "me/spirals", { headers: authHeader() });
 };
 
+const getSpiralsByDate = (startDate, endDate) => {
+  return axios.get(API_URL + "me/spirals/calendar/" + startDate + '/' + endDate, { headers: authHeader() });
+};
+
+const getSpiralById = (spiralId) => {
+  return axios.get(API_URL + "me/spiral/" + spiralId, { headers: authHeader() });
+};
+
+const deleteSpiralById = (spiralId) => {
+  return axios.delete(API_URL + "me/spiral/" + spiralId, { headers: authHeader() });
+};
+
 const getModeratorBoard = () => {
   return axios.get(API_URL + "mod", { headers: authHeader() });
 };
@@ -36,6 +48,9 @@ export default {
     getTimer,
     cancelTimer,
     getSpirals,
+    getSpiralsByDate,
+    getSpiralById,
+    deleteSpiralById,
   getModeratorBoard,
   getAdminBoard,
 };

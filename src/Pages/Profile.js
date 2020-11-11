@@ -3,12 +3,12 @@ import AuthService from "../Services/auth.service";
 import UserService from "../Services/user.service";
 
 import { Header } from '../Components/Header.js';
+import { SpiralCalendar } from '../Components/SpiralCalendar.js';
 
 const Profile = () => {
 
   const [userName, setUserName] = useState("");
   const [recentSpirals, setRecentSpirals] = useState([]);
-
 
   console.log(recentSpirals);
       
@@ -39,6 +39,8 @@ const Profile = () => {
     { (userName ) && (   <h3>Welcome, {userName}</h3> ) }
     { (!userName ) && (   <h3>Not logged in</h3> ) }
 
+    <SpiralCalendar />
+
     <div className="list">
       {
       recentSpirals.map((x, i) => {
@@ -46,11 +48,11 @@ const Profile = () => {
           <div className="spiral" key={i} >
             {x.startDate}
 
-            <div class="goals">
+            <div className="goals">
             {
-              x.goals.map((x, i) => {
+              x.goals.map((x, j) => {
                 return (
-                  <div className="goal">{x}</div>
+                  <div className="goal" key={j} >{x}</div>
                 )
               })
             }

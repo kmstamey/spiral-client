@@ -97,7 +97,7 @@
 
 # Links
 
-# Deployment: 
+# Deployment: http://ks-spiral-client.herokuapp.com/
 
 # Github Client https://github.com/kmstamey/spiral-client 
 
